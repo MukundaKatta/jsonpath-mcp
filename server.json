@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.MukundaKatta/jsonpath",
+  "description": "MCP server: query a JSON value with JSONPath ($.foo.bar[*]).",
+  "version": "0.1.1",
+  "repository": {
+    "url": "https://github.com/MukundaKatta/jsonpath-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://github.com/MukundaKatta/jsonpath-mcp",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "@mukundakatta/jsonpath-mcp",
+      "version": "0.1.1",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}
