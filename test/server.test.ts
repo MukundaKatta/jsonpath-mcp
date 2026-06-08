@@ -44,3 +44,29 @@ test('result_type=path returns JSONPath strings', () => {
   assert.ok(Array.isArray(r));
   assert.ok(r[0].startsWith('$'));
 });
+
+test('result_type=all returns path/value entries', () => {
+  const r = query({ json: SHOP, path: '$.store.bicycle.color', result_type: 'all' }) as Array<{
+    path: string;
+    value: unknown;
+  }>;
+  assert.equal(r.length, 1);
+  assert.equal(r[0].value, 'red');
+  assert.ok(r[0].path.startsWith('$'));
+});
+
+test('recursive descent reaches nested keys', () => {
+  const r = query({ json: SHOP, path: '$..author' }) as string[];
+  assert.deepEqual(r.sort(), ['Evelyn Waugh', 'Herman Melville', 'Nigel Rees']);
+});
+
+test('empty path is rejected', () => {
+  assert.throws(() => query({ json: SHOP, path: '' }), /non-empty JSONPath string/);
+});
+
+test('non-string path is rejected', () => {
+  assert.throws(
+    () => query({ json: SHOP, path: 42 as unknown as string }),
+    /non-empty JSONPath string/,
+  );
+});

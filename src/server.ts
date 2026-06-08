@@ -14,7 +14,7 @@ import {
 } from '@modelcontextprotocol/sdk/types.js';
 import { JSONPath } from 'jsonpath-plus';
 
-const VERSION = '0.1.0';
+const VERSION = '0.1.1';
 
 export interface QueryOpts {
   json: unknown;
@@ -23,6 +23,9 @@ export interface QueryOpts {
 }
 
 export function query(opts: QueryOpts): unknown {
+  if (typeof opts.path !== 'string' || opts.path.length === 0) {
+    throw new Error('path must be a non-empty JSONPath string');
+  }
   // jsonpath-plus types its `json` option as string|number|boolean|object|any[]|null;
   // we accept any JSON-shaped input, so cast through `object`.
   return JSONPath({
